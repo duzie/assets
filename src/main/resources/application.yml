@@ -1,0 +1,15 @@
+logging:
+  file:
+    name: app.log
+  level:
+    com.f.assets: debug
+spring:
+  application:
+    name: fa
+  datasource:
+    url: jdbc:mysql://localhost:3306/fa?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 23456789
+  security:
+    user:
+      password: '{bcrypt}$2a$10$16zpnXoTcCbvBZ3vHWYY4.J0xqln29SVWkl/FjLTAeIdJ.ShTomDu'

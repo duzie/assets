@@ -1,0 +1,12 @@
+#!/bin/sh
+
+jarfile=target/fa-0.0.1-SNAPSHOT.jar
+
+git pull
+
+./mvnw package -Dmaven.test.skip=true
+
+ps -aux | grep $jarfile | awk '{print $2}' | xargs kill -9
+
+nohup java -jar $jarfile &
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.f.assets.mapper.BillMapper">
+  <resultMap id="BaseResultMap" type="com.f.assets.pojo.Bill">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="periods" jdbcType="INTEGER" property="periods" />
+    <result column="cycle" jdbcType="INTEGER" property="cycle" />
+    <result column="start_date" jdbcType="DATE" property="startDate" />
+  </resultMap>
+
+  <select id="labels" resultType="java.lang.String">
+    select name from bill where create_date > date_add(now(), interval -2 month) group by name
+  </select>
+</mapper>

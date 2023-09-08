@@ -7,6 +7,7 @@ import com.f.assets.service.BillDetailService;
 import com.f.assets.service.BillService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,5 +61,11 @@ public class BillController {
     public String delele(long id) {
         billService.deleteBill(id);
         return "redirect:./add";
+    }
+    @Scheduled(cron = " 0 50 23 * * ?")
+    public  void updateBalance(){
+        List<BillMonthDetailVo> billDetails = billDetailService.findBillDetails(balance);
+        balance = balance - billDetails.get(0).getAmount();
+
     }
 }

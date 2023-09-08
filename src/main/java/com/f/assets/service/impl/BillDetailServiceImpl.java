@@ -28,14 +28,14 @@ public class BillDetailServiceImpl extends ServiceImpl<BillDetailMapper, BillDet
         for (Date date : dates) {
             BillDetailVo billDetailVo = new BillDetailVo();
             billDetailVo.setBillDate(date);
-            billDetailVo.setAmount(collect.get(date).stream().mapToDouble(b->b.getAmount().doubleValue()).sum());
+            billDetailVo.setAmount(collect.get(date).stream().mapToInt(b -> b.getAmount().intValue()).sum());
             billDetailVo.setBillDetails(collect.get(date));
             billDetailVos.add(billDetailVo);
         }
         billDetailVos.sort(Comparator.comparing(BillDetailVo::getBillDate));
 
         for (BillDetailVo billDetailVo : billDetailVos) {
-            balance = billDetailVo.getAmount().intValue() + balance;
+            balance = billDetailVo.getAmount() + balance;
             billDetailVo.setBalance(balance);
         }
 
@@ -46,7 +46,7 @@ public class BillDetailServiceImpl extends ServiceImpl<BillDetailMapper, BillDet
             BillMonthDetailVo billMonthDetailVo = new BillMonthDetailVo();
             billMonthDetailVo.setBillDate(date);
             billMonthDetailVo.setBillDetails(monthCollect.get(date));
-            billMonthDetailVo.setAmount(monthCollect.get(date).stream().mapToDouble(BillDetailVo::getAmount).sum());
+            billMonthDetailVo.setAmount(monthCollect.get(date).stream().mapToInt(BillDetailVo::getAmount).sum());
             billMonthDetailVos.add(billMonthDetailVo);
         }
         billMonthDetailVos.sort(Comparator.comparing(BillMonthDetailVo::getBillDate));

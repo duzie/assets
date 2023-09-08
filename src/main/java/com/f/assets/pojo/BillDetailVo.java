@@ -14,7 +14,7 @@ public class BillDetailVo {
 
     private Date billDate;
 
-    private Double amount;
+    private int amount;
 
     private int balance;
 

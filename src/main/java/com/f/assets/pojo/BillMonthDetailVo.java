@@ -12,7 +12,7 @@ public class BillMonthDetailVo {
 
     private Date billDate;
 
-    private Double amount;
+    private int amount;
 
     private List<BillDetailVo> billDetails;
 

@@ -42,7 +42,7 @@ public class BillController {
     @GetMapping("data")
     public List<BillDetail> data() {
         return billDetailService.lambdaQuery()
-                .le(BillDetail::getBillDate, new Date())
+                .ge(BillDetail::getBillDate, new Date())
                 .orderByAsc(BillDetail::getBillDate)
                 .list();
     }

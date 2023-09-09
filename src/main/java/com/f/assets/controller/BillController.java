@@ -2,6 +2,7 @@ package com.f.assets.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.f.assets.pojo.Bill;
+import com.f.assets.pojo.BillDetail;
 import com.f.assets.pojo.BillMonthDetailVo;
 import com.f.assets.service.BillDetailService;
 import com.f.assets.service.BillService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -38,8 +40,11 @@ public class BillController {
 
     @ResponseBody
     @GetMapping("data")
-    public List<BillMonthDetailVo> data() {
-        return billDetailService.findBillDetails(balance);
+    public List<BillDetail> data() {
+        return billDetailService.lambdaQuery()
+                .le(BillDetail::getBillDate, new Date())
+                .orderByAsc(BillDetail::getBillDate)
+                .list();
     }
 
     /**

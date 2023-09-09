@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -35,6 +36,15 @@ public class BillController {
         return "index";
     }
 
+    @ResponseBody
+    @GetMapping("data")
+    public List<BillMonthDetailVo> data() {
+        return billDetailService.findBillDetails(balance);
+    }
+
+    /**
+     *
+     */
     @GetMapping("add")
     public String addView(Model model) {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -62,10 +72,10 @@ public class BillController {
         billService.deleteBill(id);
         return "redirect:./add";
     }
+
     @Scheduled(cron = " 0 50 23 * * ?")
-    public  void updateBalance(){
+    public void updateBalance() {
         List<BillMonthDetailVo> billDetails = billDetailService.findBillDetails(balance);
         balance = balance - billDetails.get(0).getAmount();
-
     }
 }
